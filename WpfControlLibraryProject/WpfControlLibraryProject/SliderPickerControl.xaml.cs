@@ -108,7 +108,7 @@ namespace WpfControlLibraryProject
             var args = new RoutedPropertyChangedEventArgs<string>(e.OldValue.ToString(), e.NewValue.ToString());
             args.RoutedEvent = ContentValueSliderChangedEvent;
 
-            if(sliderPicker != null)
+            if (sliderPicker != null)
             {
                 sliderPicker.ContentValueSlider = e.NewValue.ToString();
                 sliderPicker.SliderValue = (double)e.NewValue;

@@ -13,7 +13,7 @@
             <RowDefinition Height="0.4*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="ContentTextBox" Grid.Row="0" Text="{Binding ElementName=sliderPicker, Path=ContentValueSlider}" TextAlignment="Center" FontSize="22" FontFamily="Times New Roman"></TextBox>
+        <TextBox x:Name="ContentTextBox" Grid.Row="0" Text="{Binding ElementName=sliderPicker, Path=SliderValue}" TextAlignment="Center" FontSize="22" FontFamily="Times New Roman"></TextBox>
         <Slider x:Name="SliderElement" Grid.Row="1" Margin="10,0,10,0" Value="{Binding ElementName=sliderPicker, Path=SliderValue}" Minimum="0" Maximum="300"></Slider>
     </Grid>
 </UserControl>
