@@ -7,7 +7,13 @@
              mc:Ignorable="d" 
              Name="sliderPicker"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="0.4*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="ContentTextBox" Grid.Row="0" Text="{Binding ElementName=sliderPicker, Path=ContentValueSlider}" TextAlignment="Center" FontSize="22" FontFamily="Times New Roman"></TextBox>
+        <Slider x:Name="SliderElement" Grid.Row="1" Margin="10,0,10,0" Value="{Binding ElementName=sliderPicker, Path=SliderValue}" Minimum="0" Maximum="300"></Slider>
     </Grid>
 </UserControl>

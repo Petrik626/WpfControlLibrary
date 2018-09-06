@@ -31,10 +31,10 @@ namespace WpfControlLibraryProject
             FrameworkPropertyMetadata titleMetadata = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTitleChanged);
             FrameworkPropertyMetadata valueMetadata = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSliderValueChanged);
             FrameworkPropertyMetadata contentMetadata = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentValueSliderChanged);
-            FrameworkPropertyMetadata minimumMetadata = new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMinimumValueChanged);
-            FrameworkPropertyMetadata maximumMetadata = new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMaximumValueChanged);
-            FrameworkPropertyMetadata contentMinimum = new FrameworkPropertyMetadata("0,0", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMinimumValuePropertyChanged);
-            FrameworkPropertyMetadata contentMaximum = new FrameworkPropertyMetadata("1,0", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMaximumValuePropertyChanged);
+            FrameworkPropertyMetadata minimumMetadata = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMinimumValueChanged);
+            FrameworkPropertyMetadata maximumMetadata = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMaximumValueChanged);
+            FrameworkPropertyMetadata contentMinimum = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMinimumValuePropertyChanged);
+            FrameworkPropertyMetadata contentMaximum = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMaximumValuePropertyChanged);
 
 
             SliderValueProperty = DependencyProperty.Register("SliderValue", typeof(double), typeof(SliderPicker), valueMetadata);
@@ -42,8 +42,8 @@ namespace WpfControlLibraryProject
             ContentValueSliderProperty = DependencyProperty.Register("ContentValueSlider", typeof(string), typeof(SliderPicker), contentMetadata);
             MaximumValueProperty = DependencyProperty.Register("MaximumValue", typeof(double), typeof(SliderPicker), maximumMetadata);
             MinimumValueProperty = DependencyProperty.Register("MinimumValue", typeof(double), typeof(SliderPicker), minimumMetadata);
-            ContentMaximumValueProperty = DependencyProperty.Register("ContentMaximumValue", typeof(double), typeof(SliderPicker), contentMaximum);
-            ContentMinimumValueProperty = DependencyProperty.Register("ContentMinimumValue", typeof(double), typeof(SliderPicker), contentMinimum);
+            ContentMaximumValueProperty = DependencyProperty.Register("ContentMaximumValue", typeof(string), typeof(SliderPicker), contentMaximum);
+            ContentMinimumValueProperty = DependencyProperty.Register("ContentMinimumValue", typeof(string), typeof(SliderPicker), contentMinimum);
 
             SliderValueChangedEvent = EventManager.RegisterRoutedEvent("SliderValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
             TitleChangedEvent = EventManager.RegisterRoutedEvent("TitleChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<string>), typeof(SliderPicker));
@@ -237,7 +237,7 @@ namespace WpfControlLibraryProject
         public string ContentValueSlider
         {
             get => GetValue(ContentValueSliderProperty).ToString();
-            private set => SetValue(ContentValueSliderProperty, value);
+            set => SetValue(ContentValueSliderProperty, value);
         }
 
         public double MinimumValue
