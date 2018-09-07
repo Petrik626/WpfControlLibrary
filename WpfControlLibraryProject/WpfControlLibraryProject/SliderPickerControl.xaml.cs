@@ -56,6 +56,8 @@ namespace WpfControlLibraryProject
             MaximumValueChangedEvent = EventManager.RegisterRoutedEvent("MaximumValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
             ContentMinimumValueChangedEvent = EventManager.RegisterRoutedEvent("ContentMinimumValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<string>), typeof(SliderPicker));
             ContentMaximumValueChangedEvent = EventManager.RegisterRoutedEvent("ContentMaximumValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<string>), typeof(SliderPicker));
+            SmallChangeValueChangedEvent = EventManager.RegisterRoutedEvent("SmallChangeValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
+            LargeChangeValueChangedEvent = EventManager.RegisterRoutedEvent("LargeChangeValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
 
         }
         #endregion
@@ -78,6 +80,8 @@ namespace WpfControlLibraryProject
         public static readonly RoutedEvent MaximumValueChangedEvent;
         public static readonly RoutedEvent ContentMinimumValueChangedEvent;
         public static readonly RoutedEvent ContentMaximumValueChangedEvent;
+        public static readonly RoutedEvent SmallChangeValueChangedEvent;
+        public static readonly RoutedEvent LargeChangeValueChangedEvent;
         #endregion
         #region STATIC METHODS
         private static void OnSliderValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -228,20 +232,26 @@ namespace WpfControlLibraryProject
         private static void OnSmallChangeValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             SliderPicker picker = sender as SliderPicker;
+            var args = new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue);
+            args.RoutedEvent = SmallChangeValueChangedEvent;
 
             if(picker != null)
             {
                 picker.SmallChangeValue = (double)e.NewValue;
+                picker.RaiseEvent(args);
             }
         }
 
         private static void OnLargeChangeValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             SliderPicker picker = sender as SliderPicker;
+            var args = new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue);
+            args.RoutedEvent = LargeChangeValueChangedEvent;
 
             if(picker != null)
             {
                 picker.LargeChangeValue = (double)e.NewValue;
+                picker.RaiseEvent(args);
             }
         }
         #endregion
@@ -341,6 +351,18 @@ namespace WpfControlLibraryProject
         {
             add => AddHandler(ContentMaximumValueChangedEvent, value);
             remove => RemoveHandler(ContentMaximumValueChangedEvent, value);
+        }
+
+        public event RoutedPropertyChangedEventHandler<double> SmallChangeValueChanged
+        {
+            add => AddHandler(SmallChangeValueChangedEvent, value);
+            remove => RemoveHandler(SmallChangeValueChangedEvent, value);
+        }
+
+        public event RoutedPropertyChangedEventHandler<double> LargeChangeValueChanged
+        {
+            add => AddHandler(LargeChangeValueChangedEvent, value);
+            remove => RemoveHandler(LargeChangeValueChangedEvent, value);
         }
         #endregion
     }
