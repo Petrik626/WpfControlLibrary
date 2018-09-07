@@ -35,6 +35,8 @@ namespace WpfControlLibraryProject
             FrameworkPropertyMetadata maximumMetadata = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMaximumValueChanged);
             FrameworkPropertyMetadata contentMinimum = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMinimumValuePropertyChanged);
             FrameworkPropertyMetadata contentMaximum = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMaximumValuePropertyChanged);
+            FrameworkPropertyMetadata smallChange = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSmallChangeValueChanged);
+            FrameworkPropertyMetadata largeChange = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnLargeChangeValueChanged);
 
 
             SliderValueProperty = DependencyProperty.Register("SliderValue", typeof(double), typeof(SliderPicker), valueMetadata);
@@ -44,6 +46,8 @@ namespace WpfControlLibraryProject
             MinimumValueProperty = DependencyProperty.Register("MinimumValue", typeof(double), typeof(SliderPicker), minimumMetadata);
             ContentMaximumValueProperty = DependencyProperty.Register("ContentMaximumValue", typeof(string), typeof(SliderPicker), contentMaximum);
             ContentMinimumValueProperty = DependencyProperty.Register("ContentMinimumValue", typeof(string), typeof(SliderPicker), contentMinimum);
+            SmallChangeValueProperty = DependencyProperty.Register("SmallChangeValue", typeof(double), typeof(SliderPicker), smallChange);
+            LargeChangeValueProperty = DependencyProperty.Register("LargeChangeValue", typeof(double), typeof(SliderPicker), largeChange);
 
             SliderValueChangedEvent = EventManager.RegisterRoutedEvent("SliderValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
             TitleChangedEvent = EventManager.RegisterRoutedEvent("TitleChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<string>), typeof(SliderPicker));
@@ -63,6 +67,8 @@ namespace WpfControlLibraryProject
         public static readonly DependencyProperty MaximumValueProperty;
         public static readonly DependencyProperty ContentMinimumValueProperty;
         public static readonly DependencyProperty ContentMaximumValueProperty;
+        public static readonly DependencyProperty SmallChangeValueProperty;
+        public static readonly DependencyProperty LargeChangeValueProperty;
         #endregion
         #region STATIC EVENTS
         public static readonly RoutedEvent SliderValueChangedEvent;
@@ -111,8 +117,6 @@ namespace WpfControlLibraryProject
             if (sliderPicker != null)
             {
                 sliderPicker.ContentValueSlider = e.NewValue.ToString();
-                sliderPicker.SliderValue = (double)e.NewValue;
-
                 sliderPicker.RaiseEvent(args);
             }
         }
@@ -220,6 +224,26 @@ namespace WpfControlLibraryProject
                 sliderPicker.RaiseEvent(args);
             }
         }
+
+        private static void OnSmallChangeValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            SliderPicker picker = sender as SliderPicker;
+
+            if(picker != null)
+            {
+                picker.SmallChangeValue = (double)e.NewValue;
+            }
+        }
+
+        private static void OnLargeChangeValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            SliderPicker picker = sender as SliderPicker;
+
+            if(picker != null)
+            {
+                picker.LargeChangeValue = (double)e.NewValue;
+            }
+        }
         #endregion
         #region PROPERTIES
         public double SliderValue
@@ -262,6 +286,18 @@ namespace WpfControlLibraryProject
         {
             get => GetValue(ContentMaximumValueProperty).ToString();
             set => SetValue(ContentMaximumValueProperty, value);
+        }
+
+        public double SmallChangeValue
+        {
+            get => (double)GetValue(SmallChangeValueProperty);
+            set => SetValue(SmallChangeValueProperty, value);
+        }
+
+        public double LargeChangeValue
+        {
+            get => (double)GetValue(LargeChangeValueProperty);
+            set => SetValue(LargeChangeValueProperty, value);
         }
         #endregion
         #region EVENTS
