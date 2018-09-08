@@ -31,10 +31,10 @@ namespace WpfControlLibraryProject
             FrameworkPropertyMetadata titleMetadata = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTitleChanged);
             FrameworkPropertyMetadata valueMetadata = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSliderValueChanged);
             FrameworkPropertyMetadata contentMetadata = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentValueSliderChanged);
-            FrameworkPropertyMetadata minimumMetadata = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMinimumValueChanged);
-            FrameworkPropertyMetadata maximumMetadata = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMaximumValueChanged);
-            FrameworkPropertyMetadata contentMinimum = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMinimumValuePropertyChanged);
-            FrameworkPropertyMetadata contentMaximum = new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMaximumValuePropertyChanged);
+            FrameworkPropertyMetadata minimumMetadata = new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMinimumValueChanged);
+            FrameworkPropertyMetadata maximumMetadata = new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnMaximumValueChanged);
+            FrameworkPropertyMetadata contentMinimum = new FrameworkPropertyMetadata((0.0).ToString(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMinimumValuePropertyChanged);
+            FrameworkPropertyMetadata contentMaximum = new FrameworkPropertyMetadata((1.0).ToString(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMaximumValuePropertyChanged);
             FrameworkPropertyMetadata smallChange = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSmallChangeValueChanged);
             FrameworkPropertyMetadata largeChange = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnLargeChangeValueChanged);
 
