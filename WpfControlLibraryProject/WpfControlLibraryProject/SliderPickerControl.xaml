@@ -11,8 +11,8 @@
         <Style x:Key="BorderStyle" TargetType="Border">
             <Setter Property="Background" Value="White"></Setter>
             <Setter Property="BorderThickness" Value="1,1,1,1"></Setter>
-            <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="CornerRadius" Value="4"></Setter>
+            <Setter Property="BorderBrush" Value="{Binding ElementName=sliderPicker, Path=BorderColor}"></Setter>
         </Style>
 
         <Style x:Key="MinimumMaximumTextBoxStyle" TargetType="TextBox">

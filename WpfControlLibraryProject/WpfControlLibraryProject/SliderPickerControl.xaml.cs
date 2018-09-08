@@ -37,6 +37,8 @@ namespace WpfControlLibraryProject
             FrameworkPropertyMetadata contentMaximum = new FrameworkPropertyMetadata((1.0).ToString(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentMaximumValuePropertyChanged);
             FrameworkPropertyMetadata smallChange = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSmallChangeValueChanged);
             FrameworkPropertyMetadata largeChange = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnLargeChangeValueChanged);
+            FrameworkPropertyMetadata borderColor = new FrameworkPropertyMetadata(Colors.Black, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnBorderColorChanged);
+
 
 
             SliderValueProperty = DependencyProperty.Register("SliderValue", typeof(double), typeof(SliderPicker), valueMetadata);
@@ -48,6 +50,7 @@ namespace WpfControlLibraryProject
             ContentMinimumValueProperty = DependencyProperty.Register("ContentMinimumValue", typeof(string), typeof(SliderPicker), contentMinimum);
             SmallChangeValueProperty = DependencyProperty.Register("SmallChangeValue", typeof(double), typeof(SliderPicker), smallChange);
             LargeChangeValueProperty = DependencyProperty.Register("LargeChangeValue", typeof(double), typeof(SliderPicker), largeChange);
+            BorderColorProperty = DependencyProperty.Register("BorderColor", typeof(Color), typeof(SliderPicker), borderColor);
 
             SliderValueChangedEvent = EventManager.RegisterRoutedEvent("SliderValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
             TitleChangedEvent = EventManager.RegisterRoutedEvent("TitleChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<string>), typeof(SliderPicker));
@@ -71,6 +74,7 @@ namespace WpfControlLibraryProject
         public static readonly DependencyProperty ContentMaximumValueProperty;
         public static readonly DependencyProperty SmallChangeValueProperty;
         public static readonly DependencyProperty LargeChangeValueProperty;
+        public static readonly DependencyProperty BorderColorProperty;
         #endregion
         #region STATIC EVENTS
         public static readonly RoutedEvent SliderValueChangedEvent;
@@ -254,6 +258,16 @@ namespace WpfControlLibraryProject
                 picker.RaiseEvent(args);
             }
         }
+
+        private static void OnBorderColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            SliderPicker picker = sender as SliderPicker;
+
+            if(picker != null)
+            {
+                picker.BorderColor = (Color)e.NewValue;
+            }
+        }
         #endregion
         #region PROPERTIES
         public double SliderValue
@@ -308,6 +322,12 @@ namespace WpfControlLibraryProject
         {
             get => (double)GetValue(LargeChangeValueProperty);
             set => SetValue(LargeChangeValueProperty, value);
+        }
+
+        public Color BorderColor
+        {
+            get => (Color)GetValue(BorderColorProperty);
+            set => SetValue(BorderColorProperty, value);
         }
         #endregion
         #region EVENTS
