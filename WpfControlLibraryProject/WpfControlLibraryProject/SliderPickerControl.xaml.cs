@@ -18,7 +18,7 @@ namespace WpfControlLibraryProject
     /// <summary>
     /// Логика взаимодействия для UserControl1.xaml
     /// </summary>
-    public partial class SliderPicker : UserControl
+    public sealed partial class SliderPicker : UserControl
     {
         #region CONSTRUCTORS
         public SliderPicker()
@@ -264,16 +264,17 @@ namespace WpfControlLibraryProject
         private static void OnBorderColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             SliderPicker picker = sender as SliderPicker;
-            var args = new RoutedPropertyChangedEventArgs<Color>((Color)e.OldValue, (Color)e.NewValue);
+            Color newValue = (Color)e.NewValue;
+            var args = new RoutedPropertyChangedEventArgs<Color>((Color)e.OldValue, newValue);
             args.RoutedEvent = BorderColorChangedEvent;
 
             if(picker != null)
             {
-                picker.BorderColor = (Color)e.NewValue;
-                picker.Border1.BorderBrush = new SolidColorBrush(picker.BorderColor);
-                picker.Border2.BorderBrush = new SolidColorBrush(picker.BorderColor);
-                picker.Border3.BorderBrush = new SolidColorBrush(picker.BorderColor);
-                picker.Border4.BorderBrush = new SolidColorBrush(picker.BorderColor);
+                picker.BorderColor = newValue;
+                picker.Border1.BorderBrush = new SolidColorBrush(newValue);
+                picker.Border2.BorderBrush = new SolidColorBrush(newValue);
+                picker.Border3.BorderBrush = new SolidColorBrush(newValue);
+                picker.Border4.BorderBrush = new SolidColorBrush(newValue);
 
                 picker.RaiseEvent(args);
             }
@@ -399,6 +400,12 @@ namespace WpfControlLibraryProject
         {
             add => AddHandler(BorderColorChangedEvent, value);
             remove => RemoveHandler(BorderColorChangedEvent, value);
+        }
+        #endregion
+        #region METHODS
+        public override string ToString()
+        {
+            return typeof(SliderPicker).FullName;
         }
         #endregion
     }
