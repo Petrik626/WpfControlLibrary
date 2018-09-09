@@ -61,6 +61,7 @@ namespace WpfControlLibraryProject
             ContentMaximumValueChangedEvent = EventManager.RegisterRoutedEvent("ContentMaximumValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<string>), typeof(SliderPicker));
             SmallChangeValueChangedEvent = EventManager.RegisterRoutedEvent("SmallChangeValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
             LargeChangeValueChangedEvent = EventManager.RegisterRoutedEvent("LargeChangeValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
+            BorderColorChangedEvent = EventManager.RegisterRoutedEvent("BorderColorChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<Color>), typeof(SliderPicker));
 
         }
         #endregion
@@ -86,6 +87,7 @@ namespace WpfControlLibraryProject
         public static readonly RoutedEvent ContentMaximumValueChangedEvent;
         public static readonly RoutedEvent SmallChangeValueChangedEvent;
         public static readonly RoutedEvent LargeChangeValueChangedEvent;
+        public static readonly RoutedEvent BorderColorChangedEvent;
         #endregion
         #region STATIC METHODS
         private static void OnSliderValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -262,10 +264,18 @@ namespace WpfControlLibraryProject
         private static void OnBorderColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             SliderPicker picker = sender as SliderPicker;
+            var args = new RoutedPropertyChangedEventArgs<Color>((Color)e.OldValue, (Color)e.NewValue);
+            args.RoutedEvent = BorderColorChangedEvent;
 
             if(picker != null)
             {
                 picker.BorderColor = (Color)e.NewValue;
+                picker.Border1.BorderBrush = new SolidColorBrush(picker.BorderColor);
+                picker.Border2.BorderBrush = new SolidColorBrush(picker.BorderColor);
+                picker.Border3.BorderBrush = new SolidColorBrush(picker.BorderColor);
+                picker.Border4.BorderBrush = new SolidColorBrush(picker.BorderColor);
+
+                picker.RaiseEvent(args);
             }
         }
         #endregion
@@ -383,6 +393,12 @@ namespace WpfControlLibraryProject
         {
             add => AddHandler(LargeChangeValueChangedEvent, value);
             remove => RemoveHandler(LargeChangeValueChangedEvent, value);
+        }
+
+        public event RoutedPropertyChangedEventHandler<Color> BorderColorChanged
+        {
+            add => AddHandler(BorderColorChangedEvent, value);
+            remove => RemoveHandler(BorderColorChangedEvent, value);
         }
         #endregion
     }

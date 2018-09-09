@@ -12,7 +12,7 @@
             <Setter Property="Background" Value="White"></Setter>
             <Setter Property="BorderThickness" Value="1,1,1,1"></Setter>
             <Setter Property="CornerRadius" Value="4"></Setter>
-            <Setter Property="BorderBrush" Value="{Binding ElementName=sliderPicker, Path=BorderColor}"></Setter>
+            <Setter Property="BorderBrush" Value="{Binding TargetNullValue=Black}"></Setter>
         </Style>
 
         <Style x:Key="MinimumMaximumTextBoxStyle" TargetType="TextBox">
@@ -62,13 +62,13 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource BorderStyle}">
+                <Border x:Name="Border1" Grid.Row="0" Grid.Column="0" Style="{StaticResource BorderStyle}">
                     <Label x:Name="MinimumLabel" Content="Minimum" Style="{StaticResource LabelStyle}"></Label>
                 </Border>
-                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource BorderStyle}">
+                <Border x:Name="Border2" Grid.Row="1" Grid.Column="0" Style="{StaticResource BorderStyle}">
                     <Label x:Name="MaximumLabel" Content="Maximum" Style="{StaticResource LabelStyle}"></Label>
                 </Border>
-                <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource BorderStyle}">
+                <Border x:Name="Border3" Grid.Row="0" Grid.Column="1" Style="{StaticResource BorderStyle}">
                     <TextBox x:Name="MinContentValueTextBox" Style="{StaticResource MinimumMaximumTextBoxStyle}">
                         <TextBox.Text>
                             <Binding ElementName="sliderPicker" Path="MinimumValue">
@@ -79,7 +79,7 @@
                         </TextBox.Text>
                     </TextBox>
                 </Border>
-                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource BorderStyle}">
+                <Border x:Name="Border4" Grid.Row="1" Grid.Column="1" Style="{StaticResource BorderStyle}">
                     <TextBox x:Name="MaxContentValueTextBox" Style="{StaticResource MinimumMaximumTextBoxStyle}">
                         <TextBox.Text>
                             <Binding ElementName="sliderPicker" Path="MaximumValue">
