@@ -38,6 +38,9 @@ namespace WpfControlLibraryProject
             FrameworkPropertyMetadata smallChange = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSmallChangeValueChanged);
             FrameworkPropertyMetadata largeChange = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnLargeChangeValueChanged);
             FrameworkPropertyMetadata borderColor = new FrameworkPropertyMetadata(Colors.Black, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnBorderColorChanged);
+            FrameworkPropertyMetadata titleColor = new FrameworkPropertyMetadata(new SolidColorBrush(Colors.Black), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTitleColorChanged);
+            FrameworkPropertyMetadata contentColor = new FrameworkPropertyMetadata(new SolidColorBrush(Colors.Black), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnContentColorChanged);
+            FrameworkPropertyMetadata valueSliderColor = new FrameworkPropertyMetadata(new SolidColorBrush(Colors.Black), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValueSliderColorChanged);
 
 
 
@@ -51,6 +54,9 @@ namespace WpfControlLibraryProject
             SmallChangeValueProperty = DependencyProperty.Register("SmallChangeValue", typeof(double), typeof(SliderPicker), smallChange);
             LargeChangeValueProperty = DependencyProperty.Register("LargeChangeValue", typeof(double), typeof(SliderPicker), largeChange);
             BorderColorProperty = DependencyProperty.Register("BorderColor", typeof(Color), typeof(SliderPicker), borderColor);
+            TitleColorProperty = DependencyProperty.Register("TitleColor", typeof(Brush), typeof(SliderPicker), titleColor);
+            ContentColorProperty = DependencyProperty.Register("ContentColor", typeof(Brush), typeof(SliderPicker), contentColor);
+            ValueSliderColorProperty = DependencyProperty.Register("ValueSliderColor", typeof(Brush), typeof(SliderPicker), valueSliderColor);
 
             SliderValueChangedEvent = EventManager.RegisterRoutedEvent("SliderValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
             TitleChangedEvent = EventManager.RegisterRoutedEvent("TitleChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<string>), typeof(SliderPicker));
@@ -62,6 +68,9 @@ namespace WpfControlLibraryProject
             SmallChangeValueChangedEvent = EventManager.RegisterRoutedEvent("SmallChangeValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
             LargeChangeValueChangedEvent = EventManager.RegisterRoutedEvent("LargeChangeValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<double>), typeof(SliderPicker));
             BorderColorChangedEvent = EventManager.RegisterRoutedEvent("BorderColorChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<Color>), typeof(SliderPicker));
+            TitleColorChangedEvent = EventManager.RegisterRoutedEvent("TitleColorChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<Brush>), typeof(SliderPicker));
+            ContentColorChangedEvent = EventManager.RegisterRoutedEvent("ContentColorChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<Brush>), typeof(SliderPicker));
+            ValueSliderColorChangedEvent = EventManager.RegisterRoutedEvent("ValueSliderColorChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<Brush>), typeof(SliderPicker));
 
         }
         #endregion
@@ -76,6 +85,9 @@ namespace WpfControlLibraryProject
         public static readonly DependencyProperty SmallChangeValueProperty;
         public static readonly DependencyProperty LargeChangeValueProperty;
         public static readonly DependencyProperty BorderColorProperty;
+        public static readonly DependencyProperty TitleColorProperty;
+        public static readonly DependencyProperty ContentColorProperty;
+        public static readonly DependencyProperty ValueSliderColorProperty;       
         #endregion
         #region STATIC EVENTS
         public static readonly RoutedEvent SliderValueChangedEvent;
@@ -88,6 +100,9 @@ namespace WpfControlLibraryProject
         public static readonly RoutedEvent SmallChangeValueChangedEvent;
         public static readonly RoutedEvent LargeChangeValueChangedEvent;
         public static readonly RoutedEvent BorderColorChangedEvent;
+        public static readonly RoutedEvent TitleColorChangedEvent;
+        public static readonly RoutedEvent ContentColorChangedEvent;
+        public static readonly RoutedEvent ValueSliderColorChangedEvent;
         #endregion
         #region STATIC METHODS
         private static void OnSliderValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -279,6 +294,48 @@ namespace WpfControlLibraryProject
                 picker.RaiseEvent(args);
             }
         }
+
+        private static void OnTitleColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            SliderPicker sliderPicker = sender as SliderPicker;
+            Brush newValue = (Brush)e.NewValue;
+            var args = new RoutedPropertyChangedEventArgs<Brush>((Brush)e.OldValue, newValue);
+            args.RoutedEvent = TitleColorChangedEvent;
+
+            if(sliderPicker != null)
+            {
+                sliderPicker.TitleColor = newValue;
+                sliderPicker.RaiseEvent(args);
+            }
+        }
+
+        private static void OnContentColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            SliderPicker sliderPicker = sender as SliderPicker;
+            Brush newValue = (Brush)e.NewValue;
+            var args = new RoutedPropertyChangedEventArgs<Brush>((Brush)e.OldValue, newValue);
+            args.RoutedEvent = ContentColorChangedEvent;
+
+            if(sliderPicker != null)
+            {
+                sliderPicker.ContentColor = newValue;
+                sliderPicker.RaiseEvent(args);
+            }
+        }
+
+        private static void OnValueSliderColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            SliderPicker sliderPicker = sender as SliderPicker;
+            Brush newValue = (Brush)e.NewValue;
+            var args = new RoutedPropertyChangedEventArgs<Brush>((Brush)e.OldValue, newValue);
+            args.RoutedEvent = ValueSliderColorChangedEvent;
+
+            if(sliderPicker != null)
+            {
+                sliderPicker.ValueSliderColor = newValue;
+                sliderPicker.RaiseEvent(args);
+            }
+        }
         #endregion
         #region PROPERTIES
         public double SliderValue
@@ -340,6 +397,24 @@ namespace WpfControlLibraryProject
             get => (Color)GetValue(BorderColorProperty);
             set => SetValue(BorderColorProperty, value);
         }
+
+        public Brush TitleColor
+        {
+            get => (Brush)GetValue(TitleColorProperty);
+            set => SetValue(TitleColorProperty, value);
+        }
+
+        public Brush ContentColor
+        {
+            get => (Brush)GetValue(ContentColorProperty);
+            set => SetValue(ContentColorProperty, value);
+        }
+
+        public Brush ValueSliderColor
+        {
+            get => (Brush)GetValue(ValueSliderColorProperty);
+            set => SetValue(ValueSliderColorProperty, value);
+        }
         #endregion
         #region EVENTS
         public event RoutedPropertyChangedEventHandler<double> SliderValueChanged
@@ -400,6 +475,24 @@ namespace WpfControlLibraryProject
         {
             add => AddHandler(BorderColorChangedEvent, value);
             remove => RemoveHandler(BorderColorChangedEvent, value);
+        }
+
+        public event RoutedPropertyChangedEventHandler<Brush> TitleColorChanged
+        {
+            add => AddHandler(TitleColorChangedEvent, value);
+            remove => RemoveHandler(TitleColorChangedEvent, value);
+        }
+
+        public event RoutedPropertyChangedEventHandler<Brush> ContentColorChanged
+        {
+            add => AddHandler(ContentColorChangedEvent, value);
+            remove => RemoveHandler(ContentColorChangedEvent, value);
+        }
+
+        public event RoutedPropertyChangedEventHandler<Brush> ValueSliderColorChanged
+        {
+            add => AddHandler(ValueSliderColorChangedEvent, value);
+            remove => RemoveHandler(ValueSliderColorChangedEvent, value);
         }
         #endregion
         #region METHODS

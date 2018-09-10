@@ -63,13 +63,13 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Border x:Name="Border1" Grid.Row="0" Grid.Column="0" Style="{StaticResource BorderStyle}">
-                    <Label x:Name="MinimumLabel" Content="Minimum" Style="{StaticResource LabelStyle}"></Label>
+                    <Label x:Name="MinimumLabel" Content="Minimum" Style="{StaticResource LabelStyle}" Foreground="{Binding ElementName=sliderPicker, Path=ContentColor}"></Label>
                 </Border>
                 <Border x:Name="Border2" Grid.Row="1" Grid.Column="0" Style="{StaticResource BorderStyle}">
-                    <Label x:Name="MaximumLabel" Content="Maximum" Style="{StaticResource LabelStyle}"></Label>
+                    <Label x:Name="MaximumLabel" Content="Maximum" Style="{StaticResource LabelStyle}" Foreground="{Binding ElementName=sliderPicker, Path=ContentColor}"></Label>
                 </Border>
                 <Border x:Name="Border3" Grid.Row="0" Grid.Column="1" Style="{StaticResource BorderStyle}">
-                    <TextBox x:Name="MinContentValueTextBox" Style="{StaticResource MinimumMaximumTextBoxStyle}">
+                    <TextBox x:Name="MinContentValueTextBox" Style="{StaticResource MinimumMaximumTextBoxStyle}" Foreground="{Binding ElementName=sliderPicker, Path=ContentColor}">
                         <TextBox.Text>
                             <Binding ElementName="sliderPicker" Path="MinimumValue">
                                 <Binding.ValidationRules>
@@ -80,7 +80,7 @@
                     </TextBox>
                 </Border>
                 <Border x:Name="Border4" Grid.Row="1" Grid.Column="1" Style="{StaticResource BorderStyle}">
-                    <TextBox x:Name="MaxContentValueTextBox" Style="{StaticResource MinimumMaximumTextBoxStyle}">
+                    <TextBox x:Name="MaxContentValueTextBox" Style="{StaticResource MinimumMaximumTextBoxStyle}" Foreground="{Binding ElementName=sliderPicker, Path=ContentColor}">
                         <TextBox.Text>
                             <Binding ElementName="sliderPicker" Path="MaximumValue">
                                 <Binding.ValidationRules>
@@ -93,8 +93,8 @@
             </Grid>
         </Grid>
 
-        <Label x:Name="TitleLable" Grid.Row="0" Style="{StaticResource LabelStyle}" Content="{Binding ElementName=sliderPicker, Path=Title}"></Label>
+        <Label x:Name="TitleLable" Grid.Row="0" Style="{StaticResource LabelStyle}" Content="{Binding ElementName=sliderPicker, Path=Title}" Foreground="{Binding ElementName=sliderPicker, Path=TitleColor}"></Label>
         <Slider x:Name="ValueSlider" Grid.Row="2" Style="{StaticResource SliderStyle}" Value="{Binding ElementName=sliderPicker, Path=SliderValue}" Minimum="{Binding ElementName=sliderPicker, Path=MinimumValue}" Maximum="{Binding ElementName=sliderPicker, Path=MaximumValue}"></Slider>
-        <TextBox x:Name="ValueSliderTextBox" Grid.Row="3" Style="{StaticResource TextBoxStyle}" Text="{Binding ElementName=sliderPicker, Path=ContentValueSlider}"></TextBox>
+        <TextBox x:Name="ValueSliderTextBox" Grid.Row="3" Style="{StaticResource TextBoxStyle}" Text="{Binding ElementName=sliderPicker, Path=ContentValueSlider}" Foreground="{Binding ElementName=sliderPicker, Path=ValueSliderColor}"></TextBox>
     </Grid>
 </UserControl>
